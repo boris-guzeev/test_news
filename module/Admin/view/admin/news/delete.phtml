@@ -1,0 +1,21 @@
+<?php
+
+$title = 'Удаление новости ' . $id;
+$url   = $this->url('admin_news', ['action' => 'delete', 'id' => $id]);
+
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+
+<p>
+    Вы действительно хотите удалить новость?
+    "<?= $this->escapeHtml($news->title) ?>"
+</p>
+
+<form action="<?= $url ?>" method="post">
+    <div class="form-group">
+        <input type="hidden" name="id" value="<?= (int) $news->news_id ?>" />
+        <input type="submit" class="btn btn-danger" name="del" value="Да" />
+        <input type="submit" class="btn btn-success" name="del" value="Нет" />
+    </div>
+</form>

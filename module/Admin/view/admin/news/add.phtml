@@ -1,0 +1,69 @@
+<?php
+
+$title = 'Добавить Новость';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<?php
+$date = $form->get('date');
+$date->setAttribute('class', 'form-control');
+$date->setAttribute('id', 'datepicker');
+$date->setAttribute('autocomplete', 'off');
+
+$newsTitle = $form->get('title');
+$newsTitle->setAttribute('class', 'form-control');
+$newsTitle->setAttribute('placeholder', 'Название новости');
+$newsTitle->setAttribute('autocomplete', 'off');
+
+$text = $form->get('text');
+$text->setAttribute('class', 'form-control');
+$text->setAttribute('placeholder', 'Текст');
+$text->setAttribute('autocomplete', 'off');
+
+$theme = $form->get('theme_id');
+$theme->setAttribute('class', 'form-control');
+$theme->setAttribute('placeholder', 'Текст');
+
+$submit = $form->get('submit');
+$submit->setAttribute('class', 'btn btn-primary');
+
+$form->setAttribute('action', $this->url('admin_news', ['action' => 'add']));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+?>
+<div class="form-group">
+    <?= $this->formLabel($date) ?>
+    <?= $this->formElement($date) ?>
+    <?= $this->formElementErrors()->render($date, ['class' => 'help-block']) ?>
+</div>
+<script>
+$( function() {
+    $( "#datepicker" ).datepicker({
+        showOtherMonths: true,
+        selectOtherMonths: true
+    });
+} );
+</script>
+<div class="form-group">
+    <?= $this->formLabel($newsTitle) ?>
+    <?= $this->formElement($newsTitle) ?>
+    <?= $this->formElementErrors()->render($newsTitle, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group">
+    <?= $this->formLabel($text) ?>
+    <?= $this->formElement($text) ?>
+    <?= $this->formElementErrors()->render($text, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group">
+    <?= $this->formLabel($theme) ?>
+    <?= $this->formElement($theme) ?>
+    <?= $this->formElementErrors()->render($theme, ['class' => 'help-block']) ?>
+</div>
+
+<?php
+echo $this->formSubmit($submit);
+echo $this->formHidden($form->get('news_id'));
+echo $this->form()->closeTag();

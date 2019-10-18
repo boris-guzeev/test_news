@@ -1,0 +1,108 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="row">
+                <ul>
+                    <?php foreach ($themes as $theme) { ?>
+                        <li><a href="<?= $this->url(
+                                'application',
+                                ['action' => 'index'],
+                                [
+                                    'query' => [
+                                        'theme' => $theme['theme_id']
+                                    ]
+                                ]) ?>">
+                                <?= $theme['theme_title'] ?> (<?= $theme['quantity'] ?>)
+                        </li>
+                    <?php } ?>
+                </ul>
+            </div>
+            <div class="row">
+                <ul>
+                    <?php foreach ($monthYear as $year => $months) { ?>
+                        <li><a href="<?= $this->url(
+                                'application',
+                                ['action' => 'index'],
+                                [
+                                    'query' => [
+                                        'ym' => $year
+                                    ]
+                                ]) ?>">
+
+                                <?= $year ?></a>
+                            <ul>
+                                <?php foreach ($months as $month) { ?>
+                                    <li>
+                                        <a href="<?= $this->url(
+                                            'application',
+                                            ['action' => 'index'],
+                                            [
+                                                'query' => [
+                                                    'ym' => $month['ym']
+                                                ]
+                                            ]) ?>">
+                                            <?= $month['month'] ?> (<?= $month['quantity'] ?>)
+                                        </a>
+                                    </li>
+                                <?php } ?>
+                            </ul>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </div>
+
+        </div>
+        <div class="col-sm-9">
+            <div class="row">
+                <div class="container">
+                    <ul class="pagination">
+                        <?php for ($i = 1; $i <= $pagination['pagesQuantity']; $i++) { ?>
+                            <li class="<?php if ($i == $pagination['currentPage']) echo 'active'?>">
+                                <a href="<?php
+                                $query = [
+                                    'page' => $i
+                                ];
+                                if (!empty($paginationUrl['ym']))
+                                    $query['ym'] = $paginationUrl['ym'];
+
+                                if (!empty($paginationUrl['theme']))
+                                    $query['theme'] = $paginationUrl['theme'];
+
+                                echo $this->url(
+                                    'application',
+                                    ['action' => 'index'],
+                                    [
+                                        'query' => $query
+                                    ])
+                                ?>"><?=$i?></a></li>
+                        <?php } ?>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="row">
+                <?php foreach ($news as $one) { ?>
+                    <div>
+                        <div class="alert alert-info">
+                            <h2><?= $one['title'] ?> (<?= $one['news_id'] ?>)</h2>
+                            <h3><?= date("d.m.Y", strtotime($one['date'])) ?>, <?= $one['theme_title'] ?></h3>
+                            <p>
+                                <?= $one['text'] ?>
+                                <a href="<?=$this->url(
+                                        'application',
+                                        [
+                                            'action' => 'show',
+                                            'id' => $one['news_id']
+                                        ]
+
+                                        )?>">читать далее
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+
+        </div>
+    </div>
+</div>

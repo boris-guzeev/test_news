@@ -1,0 +1,49 @@
+<a class="btn btn-primary" href="<?= $this->url('admin_news', ['action' => 'add']) ?>">Добавить</a>
+<table class="table table-striped" id="newsGrid"
+>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Дата</th>
+            <th>Текст</th>
+            <th>Название</th>
+            <th>Тема</th>
+            <th>Ред.</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($news as $one) { ?>
+        <tr>
+            <td>
+                <?=$one['news_id']?>
+            </td>
+            <td style="width: 8%;">
+                <?=date("d.m.Y", strtotime($one['date']))?>
+            </td>
+            <td>
+                <?=$one['text']?>
+            </td>
+            <td>
+                <?=$one['title']?>
+            </td>
+            <td>
+                <?=$one['theme_title']?>
+            </td>
+            <td>
+                <a href="<?=$this->url('admin_news', ['action' => 'edit', 'id' => $one['news_id']])?>">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                </a>
+                <a href="<?=$this->url('admin_news', ['action' => 'delete', 'id' => $one['news_id']])?>">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
+            </td>
+        </tr>
+        <?php } ?>
+    </tbody>
+</table>
+<script>
+$(document).ready(function() {
+
+});
+
+</script>
